@@ -1,0 +1,72 @@
+<!-- <div class="container-fluid">
+    <form [formGroup]="loginForm" (submit)="submit()">
+        <div class="mb-3">
+            <label for="txtUsername" class="form-label">Username</label>
+            <input formControlName="username" type="text" class="form-control" id="txtUsername"
+                placeholder="exampleName">
+        </div>
+        <div class="mb-3">
+            <label for="txtPassword" class="form-label">Password</label>
+            <input formControlName="password" type="text" class="form-control" id="txtPassword" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Giriş</button>
+    </form>
+</div> -->
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-pic js-tilt" data-tilt>
+                <img src="../../../../assets/img-01.png" alt="IMG">
+            </div>
+
+            <form [formGroup]="loginForm" (submit)="submit()" class="login100-form validate-form">
+                <span class="login100-form-title">
+                    StokWise Login
+                </span>
+
+                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                    <input formControlName="username"class="input100" type="username" name="username"
+                        placeholder="Username">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <span class="material-symbols-outlined">
+                           
+                        </span> </span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    <input formControlName="password" class="input100" type="password" name="password"
+                        placeholder="********">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <span class="material-symbols-outlined">
+                           
+                        </span> </span>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button type="submit" class="login100-form-btn" >
+                        Login
+                    </button>
+                </div>
+
+                <!-- <div class="text-center p-t-12">
+                    <span class="txt1">
+                        Forgot
+                    </span>
+                    <a class="txt2" href="#">
+                        Username / Password?
+                    </a>
+                </div>
+
+                <div class="text-center p-t-136">
+                    <a class="txt2" href="#">
+                        Create your Account
+                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                    </a>
+                </div> -->
+            </form>
+        </div>
+    </div>
+</div>
