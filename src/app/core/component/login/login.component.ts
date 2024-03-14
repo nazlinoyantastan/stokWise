@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from '../../service/login.service';
+import { EmitterVisitorContext } from '@angular/compiler';
 
 @Component({
   selector: 'app-login',
@@ -11,40 +12,41 @@ import { LoginService } from '../../service/login.service';
 })
 export class LoginComponent {
 
-  loginForm= this.fb.nonNullable.group({
-    username:'',
-    password:'',
+  loginForm = this.fb.nonNullable.group({
+    email: [''], //Validators eklencek.
+    password: ''
   })
 
   constructor(
-    private fb:FormBuilder,
-    private loginService: LoginService,
+    private fb: FormBuilder,
     private toastr: ToastrService,
-    private router: Router,
-  ){  }
+    private loginService: LoginService,
+    private router: Router
+  ) { }
 
 
-  submit(){
-    let username= this.loginForm.get('username')!.value;   // ! boş gelmeyeceğini garanti ediyoruz
-    
-    let password= this.loginForm.get('password')!.value;
 
-    //email= this.loginForm.value.email!;
-
-    this.loginService.login(username,password).subscribe({
-      next:(value) => {  //next özelliği bir fonksiyon olsun dedik ve içerisine tanımladık
-        //login başarılı cevabı döndü
-        this.toastr.success('Giriş işlemi başarılı.');
-        this.router.navigateByUrl('/homepage');
+  submit() {
+    let email = this.loginForm.get('email')!.value;
+    let password = this.loginForm.get('password')!.value;
+    console.log(email);
+    console.log(password);
+    this.loginService.login(email, password).subscribe({
+      next: (value) => {
+        this.toastr.success('Successfully Log In');
+        let isAdmin = this.loginService.userHasRole('admin');
+        this.router.navigateByUrl(isAdmin ? 'adminPanel' : 'homepage');
       },
       error: (err) => {
-        this.toastr.error('Hata oluştu.');
-        //this.loginForm.setValue({ email:'', password:''}); //tüm değerleri vermek gerekiyor sadece bi kısmı olmaz
-        this.loginForm.patchValue({ password:''}); //sadece bir kısmı için
+        this.toastr.error('Wrong email or password!');
+        this.loginForm.patchValue({ email: '', password: '' });
         console.error(err);
       }
-    });
+    })
+  }
 
+  signUpRouter(){
+    this.router.navigate(['/signup']);
   }
 
 }
